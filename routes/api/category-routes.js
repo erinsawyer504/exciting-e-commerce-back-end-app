@@ -52,15 +52,64 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  // create a new category
+  // creates a new category
+  try{
+    const dbCategoryData = await Category.create({
+      category_name: req.body.category_name
+    });
+
+    res.json(dbCategoryData);
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
 
 router.put('/:id', async (req, res) => {
-  // update a category by its `id` value
+  // updates a category by its `id` value
+  try{
+    const dbCategoryData = await Category.update(req.body, {
+      where: {
+        id: req.params.id
+      },
+
+    });
+    if (!dbCategoryData[0]){
+      res.status(404).json({ message: 'No category found with this id'});
+      return;
+    }
+    res.json(dbCategoryData);
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
 
+//TODO: delete not working
+
 router.delete('/:id', async (req, res) => {
-  // delete a category by its `id` value
+  // deletes a category by its `id` value
+  try{
+    const dbCategoryData = await Category.destroy({
+      where: {
+        id: req.params.id
+      },
+
+    });
+    if (!dbCategoryData[0]){
+      res.status(404).json({ message: 'No category found with this id'});
+      return;
+    }
+    res.json(dbCategoryData);
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
+
+
 
 module.exports = router;
