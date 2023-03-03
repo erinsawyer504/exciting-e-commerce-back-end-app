@@ -5,14 +5,13 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // get all products
 router.get('/', async (req, res) => {
-  // find all products
-  // be sure to include its associated Category and Tag data
+  // includes its associated Category and Tag data
   try{
     const dbProductData = await Product.findAll({
       include: [
         {
           model: Category,
-          attribute: ['id', 'category_name']
+          attributes: ['id', 'category_name']
         },
         {
           model: Tag,
@@ -20,9 +19,7 @@ router.get('/', async (req, res) => {
         },
       ],
     });
-    const products = dbProductData.map((allProducts) =>
-      allProducts.get({ plain: true })
-    );
+
     res.json(dbProductData);
 
   } catch (err) {
@@ -32,13 +29,40 @@ router.get('/', async (req, res) => {
 });
 
 // get one product
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
+  try{
+    const dbProductData = await Product.findOne({
+      where: {
+        id: req.params.id
+      },
+
+      include: [
+        {
+          model: Category,
+          attributes: ['id', 'category_name']
+        },
+        {
+          model: Tag,
+          attributes: ['id', 'tag_name']
+        }
+      ],
+    });
+    if (!dbProductData){
+      res.status(404).json({ message: 'No product found with this id'});
+      return;
+    }
+    res.json(dbProductData);
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
 
 // create new product
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   /* req.body should look like this...
     {
       product_name: "Basketball",
