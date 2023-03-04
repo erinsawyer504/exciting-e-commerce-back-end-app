@@ -75,11 +75,11 @@ router.put('/:id', async (req, res) => {
       },
 
     });
-    if (!dbCategoryData[0]){
+    if (dbCategoryData === 0){
       res.status(404).json({ message: 'No category found with this id'});
       return;
     }
-    res.json(dbCategoryData);
+    res.status(200).json(dbCategoryData);
 
   } catch (err) {
     console.log(err);
@@ -87,7 +87,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-//TODO: delete not working
 
 router.delete('/:id', async (req, res) => {
   // deletes a category by its `id` value
@@ -102,7 +101,7 @@ router.delete('/:id', async (req, res) => {
       res.status(404).json({ message: 'No category found with this id'});
       return;
     }
-    res.json(dbCategoryData);
+    res.status(200).json("Category Deleted!");
 
   } catch (err) {
     console.log(err);
