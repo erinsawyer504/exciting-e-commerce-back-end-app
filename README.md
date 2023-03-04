@@ -5,7 +5,8 @@ This project works from the back-end database for an e-commerce application.  Fo
 
 ## Links
 - [github repo](https://github.com/erinsawyer504/exciting-e-commerce-back-end-app)
-- [Video Demo](NEED TO ADD)
+- [Video Demo on mysql and running server](https://drive.google.com/file/d/1zs4Yl2upmMq4Nt5J-F93fxvSkiddIkdy/view)
+- [Insomnia Video Demo](https://drive.google.com/file/d/1QJ8sHeiYs3UUoS4A9Agi8WGabw5IF7pK/view)
 
 ## Table of Contents
 - [Installation](#installation)  
