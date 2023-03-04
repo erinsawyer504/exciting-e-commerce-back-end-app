@@ -75,7 +75,7 @@ router.put('/:id', async (req, res) => {
       },
 
     });
-    if (dbTagData === 0){
+    if (!dbTagData[0]){
       res.status(404).json({ message: 'No Tag found with this id'});
       return;
     }
@@ -101,7 +101,7 @@ router.delete('/:id', async (req, res) => {
       return;
     }
 
-    res.status(200).json("Tag Deleted!");
+    res.json(dbTagData);
 
   } catch (err) {
     console.log(err);
